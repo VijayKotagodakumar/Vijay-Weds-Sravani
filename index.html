@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Portal | Initializing</title>
+    <style>
+        :root {
+            --gold-neon: #ffcc00;
+            --cyber-blue: #00f3ff;
+            --bg-black: #050505;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Background Animated Grid */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: perspective(500px) rotateX(60deg) translateY(-10%);
+            top: 0;
+            z-index: -1;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            from { background-position: 0 0; }
+            to { background-position: 0 40px; }
+        }
+
+        .main-frame {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.1);
+        }
+
+        .status-tag {
+            color: var(--cyber-blue);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, var(--cyber-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .event-date {
+            font-size: 1.2rem;
+            color: var(--gold-neon);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            margin-bottom: 2rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem;
+            min-width: 70px;
+            border-radius: 10px;
+        }
+
+        .box span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--cyber-blue);
+        }
+
+        .box label {
+            font-size: 0.6rem;
+            color: #777;
+            text-transform: uppercase;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .progress {
+            width: 65%; /* Adjust this to show manual progress */
+            height: 100%;
+            background: var(--cyber-blue);
+            box-shadow: 0 0 10px var(--cyber-blue);
+            animation: load 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes load {
+            from { width: 30%; }
+            to { width: 80%; }
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-frame">
+        <div class="status-tag">Protocol: Marriage_Invite</div>
+        <h1>COMING SOON</h1>
+        <div class="event-date">MAY 09, 2026</div>
+        
+        <p style="color: #aaa; margin-bottom: 2rem; font-size: 0.9rem;">
+            Digital invitation sequence is currently being encrypted. Please stand by for synchronization.
+        </p>
+
+        <div class="countdown">
+            <div class="box">
+                <span id="days">00</span>
+                <label>Days</label>
+            </div>
+            <div class="box">
+                <span id="hours">00</span>
+                <label>Hours</label>
+            </div>
+            <div class="box">
+                <span id="mins">00</span>
+                <label>Mins</label>
+            </div>
+        </div>
+
+        <div class="loading-bar">
+            <div class="progress"></div>
+        </div>
+        <div class="footer-note">System Status: Preparing Assets...</div>
+    </div>
+
+    <script>
+        // Target Date: May 9, 2026
+        const target = new Date("May 9, 2026 00:00:00").getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff < 0) {
+                document.querySelector(".main-frame h1").innerText = "THE BIG DAY IS HERE";
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("days").innerText = d.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+            document.getElementById("mins").innerText = m.toString().padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
