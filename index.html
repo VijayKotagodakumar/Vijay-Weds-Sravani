@@ -29,8 +29,45 @@ body{
 
 h1{
     text-align:center;
-    margin-bottom:50px;
+    margin-bottom:30px;
     font-size:28px;
+}
+
+/* ---------------- COUNTDOWN ---------------- */
+
+.countdown{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-bottom:60px;
+    flex-wrap:wrap;
+}
+
+.time-box{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.2);
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    min-width:100px;
+    transition:0.3s ease;
+}
+
+.time-box:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px rgba(255,255,255,0.3);
+}
+
+.time{
+    font-size:28px;
+    font-weight:700;
+    color:#00f2ff;
+}
+
+.label{
+    font-size:14px;
+    margin-top:5px;
+    letter-spacing:1px;
 }
 
 /* ---------------- STYLE SECTION ---------------- */
@@ -159,7 +196,27 @@ h1{
 
 <div class="container">
 
-    <h1>✨ Vijay ❤️ Sravani Wedding Experience ✨</h1>
+    <h1>✨ Vijay ❤️ Sravani Vivaha Vaibhavam ✨</h1>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown">
+        <div class="time-box">
+            <div class="time" id="days">00</div>
+            <div class="label">Days</div>
+        </div>
+        <div class="time-box">
+            <div class="time" id="hours">00</div>
+            <div class="label">Hours</div>
+        </div>
+        <div class="time-box">
+            <div class="time" id="minutes">00</div>
+            <div class="label">Minutes</div>
+        </div>
+        <div class="time-box">
+            <div class="time" id="seconds">00</div>
+            <div class="label">Seconds</div>
+        </div>
+    </div>
 
     <!-- Style Selection -->
     <div class="cards">
@@ -205,6 +262,26 @@ h1{
 </div>
 
 <script>
+// Countdown Date (9 May 2026)
+const weddingDate = new Date("May 9, 2026 00:00:00").getTime();
+
+setInterval(function(){
+
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
+
+}, 1000);
+
 function open90(){
     window.open("90s.html","_blank");
 }
