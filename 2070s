@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijay & Sravani 2070 | Digital Union</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@200;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-gold: #ffcc00;
+            --cyber-blue: #00f2ff;
+            --glass-bg: rgba(15, 15, 25, 0.85);
+            --border-glow: 0 0 15px rgba(255, 204, 0, 0.5);
+            --deep-space: #050508;
+        }
+
+        body {
+            background-color: var(--deep-space);
+            background-image: 
+                radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050508 100%),
+                url('https://www.transparenttextures.com/patterns/stardust.png');
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Exo 2', sans-serif;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .scroll-container {
+            position: relative;
+            width: 90%;
+            max-width: 450px;
+            perspective: 1000px;
+        }
+
+        /* Biometric Seal */
+        .bio-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #222, #000);
+            border: 2px solid var(--neon-gold);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px var(--neon-gold);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .bio-seal::before {
+            content: "";
+            width: 60%;
+            height: 60%;
+            background: url('https://cdn-icons-png.flaticon.com/512/2628/2628905.png') no-repeat center; /* Fingerprint icon */
+            background-size: contain;
+            filter: invert(80%) sepia(50%) saturate(2000%) hue-rotate(10deg);
+            animation: pulse 2s infinite;
+        }
+
+        .bio-seal.active {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* The Digital Scroll */
+        .glass-panel {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px 25px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: var(--border-glow);
+            transform: scaleY(0);
+            transform-origin: center;
+            transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .glass-panel.open {
+            transform: scaleY(1);
+            opacity: 1;
+            max-height: 3000px;
+        }
+
+        /* Typography */
+        .system-status {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            color: var(--cyber-blue);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-gold);
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+        }
+
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #fff;
+            margin: 10px 0;
+            background: linear-gradient(to bottom, #fff, var(--neon-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .neural-id {
+            font-size: 0.7rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--cyber-blue);
+            opacity: 0.7;
+            margin-bottom: 15px;
+        }
+
+        .info-block {
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            background: rgba(0, 242, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .muhurtham {
+            color: var(--neon-gold);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Hologram Button */
+        .nav-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--cyber-blue);
+            color: var(--cyber-blue);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover {
+            background: var(--cyber-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--cyber-blue);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .floating-data {
+            font-size: 0.8rem;
+            line-height: 1.8;
+            font-weight: 200;
+        }
+
+        .footer-line {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-container">
+        <div class="bio-seal" id="seal" onclick="accessNeuralLink()"></div>
+
+        <div class="glass-panel" id="invite-panel">
+            <div class="system-status">Establishing Neural Link... Active</div>
+            
+            <p class="floating-data">Sreerasthu • Shubhamasthu • Kalyanamasthu</p>
+            
+            <h2>Quantum Union 2070</h2>
+
+            <p class="floating-data">
+                Under the eternal resonance of Sri Kasuma Thimmarayudu Swamy,<br>
+                we invite you to witness the biological and spiritual sync of
+            </p>
+
+            <div class="neural-id">SUBJECT A // MALE</div>
+            <h1 class="names">Vijay Kumar</h1>
+            <div class="neural-id">ID: VK-8892-KNL</div>
+
+            <div style="font-style: italic; margin: 10px 0; color: var(--neon-gold);">CONJOINING WITH</div>
+
+            <div class="neural-id">SUBJECT B // FEMALE</div>
+            <h1 class="names">Sravani</h1>
+            <div class="neural-id">ID: SR-4410-KNL</div>
+
+            <div class="info-block">
+                <div class="system-status" style="margin-bottom: 5px; color: var(--neon-gold);">Temporal Coordinates</div>
+                <div class="muhurtham">Saturday, 9th May 2070</div>
+                <div style="font-size: 0.9rem;">11:15 AM | Abhijit Lagnam Alignment</div>
+            </div>
+
+            <div class="info-block">
+                <div class="system-status" style="margin-bottom: 5px;">Geospatial Node</div>
+                <p style="font-size: 0.9rem; margin: 5px 0;">
+                    <strong>The Ancestral Residence</strong><br>
+                    Bogolu Node, Veldurthi Sector<br>
+                    Kurnool, Andhra Territory
+                </p>
+                <a href="https://www.google.com/maps/dir//Bhogolu,+Andhra+Pradesh+518222,+India/@15.4533788,77.9137966,3358m/data=!3m1!1e3!4m17!1m8!3m7!1s0x3bb5d5570c258b01:0xae727363577e8633!2sBhogolu,+Andhra+Pradesh+518222,+India!3b1!8m2!3d15.459467!4d77.9317424!16s%2Fg%2F1thr5mfs!4m7!1m0!1m5!1m1!1s0x3bb5d5570c258b01:0xae727363577e8633!2m2!1d77.9317424!2d15.459467?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="nav-btn">🛰️ SYNC NAV-COMMS</a>
+            </div>
+
+            <div class="footer-line">
+                TRANSMISSION AUTHORIZED BY:<br>
+                <strong>Smt. Kotagoda Jayamma & Sri Kotagoda Buchappa Naidu</strong><br>
+                Digital Signature Verified
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function accessNeuralLink() {
+            // Audio effect simulation
+            const seal = document.getElementById('seal');
+            const panel = document.getElementById('invite-panel');
+
+            seal.classList.add('active');
+            
+            setTimeout(() => {
+                panel.classList.add('open');
+                window.scrollTo({
+                    top: 100,
+                    behavior: 'smooth'
+                });
+            }, 600);
+        }
+    </script>
+</body>
+</html>
