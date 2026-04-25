@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vijay & Sravani Wedding Invitation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Gidugu&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -61,7 +61,7 @@
         }
 
         .content {
-            padding: 50px 25px;
+            padding: 40px 25px;
             text-align: center;
             font-family: 'Montserrat', sans-serif;
             color: var(--text-main);
@@ -71,57 +71,52 @@
 
         .parchment.open .content { opacity: 1; }
 
-        .shlokam { 
-            font-size: 0.85rem; 
-            letter-spacing: 1px; 
-            margin-bottom: 25px; 
-            color: var(--dark-gold); 
-        }
-        
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: var(--text-main);
-            margin: 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        /* Language Toggle Styling */
+        .toggle-container {
+            display: inline-flex;
+            background: rgba(0,0,0,0.05);
+            padding: 4px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gold);
         }
 
-        .honorific {
-            font-size: 1.1rem;
+        .toggle-btn {
+            padding: 8px 18px;
+            border: none;
+            background: none;
             font-family: 'Montserrat', sans-serif;
-            color: var(--dark-gold);
-            display: block;
-            margin-bottom: -5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: 0.3s;
+            color: var(--text-main);
         }
 
-        .names {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            margin: 5px 0 20px 0;
-            color: #1a120b;
-            line-height: 1.1;
+        .toggle-btn.active {
+            background: var(--wax);
+            color: white;
         }
 
-        .details-text { 
-            font-size: 1rem; 
-            line-height: 1.7; 
-            margin: 15px 0;
-            font-weight: 300;
+        /* Language Sections */
+        .lang-content { display: none; }
+        .lang-content.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
         }
+
+        .telugu-font { font-family: 'Gidugu', sans-serif; line-height: 1.6; }
+        .shlokam { font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 25px; color: var(--dark-gold); }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; text-transform: uppercase; letter-spacing: 2px; }
+        .names { font-family: 'Great Vibes', cursive; font-size: 3.5rem; margin: 5px 0 20px 0; color: #1a120b; line-height: 1.1; }
+        .names-te { font-family: 'Gidugu', sans-serif; font-size: 2.8rem; margin: 5px 0; color: var(--wax); line-height: 1.2; }
         
         .muhurtham-box {
             border-top: 1px solid var(--gold);
             border-bottom: 1px solid var(--gold);
-            padding: 15px 0;
-            margin: 25px 0;
-        }
-
-        .muhurtham-box strong {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 5px;
+            padding: 15px 0; margin: 25px 0;
         }
 
         .venue-section {
@@ -130,15 +125,6 @@
             padding: 20px 15px;
             border-radius: 8px;
             border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .venue-title { 
-            font-family: 'Playfair Display', serif;
-            font-weight: bold; 
-            color: var(--wax); 
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
         }
 
         .map-button {
@@ -151,13 +137,6 @@
             border-radius: 30px;
             font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: transform 0.2s ease;
-        }
-
-        .map-button:active {
-            transform: scale(0.95);
         }
 
         .seal {
@@ -180,22 +159,12 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 0.65rem;
             font-weight: bold;
-            text-align: center;
             border: 1px solid var(--gold);
             padding: 8px;
             border-radius: 50%;
         }
 
-        .seal.hidden { 
-            opacity: 0; 
-            pointer-events: none; 
-            transform: translate(-50%, -50%) scale(0.5); 
-        }
-
-        @media (max-width: 400px) {
-            .names { font-size: 2.8rem; }
-            .content { padding: 40px 15px; }
-        }
+        .seal.hidden { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -207,49 +176,60 @@
 
         <div class="parchment" id="parchment">
             <div class="content">
-                <div class="shlokam">Sreerasthu • Shubhamasthu • Kalyanamasthu</div>
                 
-                <h2>Wedding Invitation</h2>
-                
-                <p class="details-text">
-                    With the divine blessings of Sri Kanuma Thimmarayudu Swamy,<br>
-                    we cordially invite you to the wedding of
-                </p>
-
-                <span class="honorific">Chi.</span>
-                <h1 class="names">Vijay Kumar</h1>
-                
-                <p style="font-family: 'Playfair Display'; font-style: italic; margin: -10px 0 10px 0;">with</p>
-                
-                <span class="honorific">Chi. La. Sow.</span>
-                <h1 class="names">Sravani</h1>
-
-                <p class="details-text" style="font-size: 0.85rem; color: #777;">
-                    D/o Smt. Chandrakala & Sri Pikkili Venkatanarayana <br>
-                    R/o Kurnool District
-                </p>
-
-                <div class="muhurtham-box">
-                    <strong>MUHURTHAM</strong>
-                    <p>Saturday, 9th May 2026<br>
-                    at 11:15 AM | Abhijit Lagnam</p>
+                <div class="toggle-container">
+                    <button class="toggle-btn active" id="btn-en" onclick="switchLang('en')">English</button>
+                    <button class="toggle-btn" id="btn-te" onclick="switchLang('te')">తెలుగు</button>
                 </div>
 
-                <div class="venue-section">
-                    <p class="venue-title">Wedding Venue</p>
-                    <p><strong>At Our Residence</strong><br>
-                    Bogolu Village, Veldurthi Mandal,<br>
-                    Kurnool District, Andhra Pradesh.</p>
+                <div id="en-content" class="lang-content active">
+                    <div class="shlokam">Sreerasthu • Shubhamasthu • Kalyanamasthu</div>
+                    <h2>Wedding Invitation</h2>
+                    <p style="font-size: 1rem; font-weight: 300; line-height: 1.7;">With the divine blessings of Sri Kanuma Thimmarayudu Swamy, we cordially invite you to the wedding of</p>
+                    <span style="color:var(--dark-gold)">Chi.</span>
+                    <h1 class="names">Vijay Kumar</h1>
+                    <p style="font-family: 'Playfair Display'; font-style: italic; margin: -10px 0 10px 0;">with</p>
+                    <span style="color:var(--dark-gold)">Chi. La. Sow.</span>
+                    <h1 class="names">Sravani</h1>
+                    <p style="font-size: 0.85rem; color: #777;">D/o Smt. Chandrakala & Sri Pikkili Venkatanarayana <br> R/o Kurnool District</p>
                     
-                    <a href="https://www.google.com/maps/dir//Bhogolu,+Andhra+Pradesh+518222,+India/@15.4533788,77.9137966,3358m/data=!3m1!1e3!4m17!1m8!3m7!1s0x3bb5d5570c258b01:0xae727363577e8633!2sBhogolu,+Andhra+Pradesh+518222,+India!3b1!8m2!3d15.459467!4d77.9317424!16s%2Fg%2F1thr5mfs!4m7!1m0!1m5!1m1!1s0x3bb5d5570c258b01:0xae727363577e8633!2m2!1d77.9317424!2d15.459467?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-button">
-                        📍 VIEW ON GOOGLE MAPS
-                    </a>
+                    <div class="muhurtham-box">
+                        <strong style="font-family: 'Playfair Display'; font-size: 1.2rem; display: block; margin-bottom: 5px;">MUHURTHAM</strong>
+                        <p>Saturday, 9th May 2026<br>at 11:15 AM | Abhijit Lagnam</p>
+                    </div>
+
+                    <div class="venue-section">
+                        <p style="color: var(--wax); font-family: 'Playfair Display'; font-weight: bold; text-transform: uppercase;">Wedding Venue</p>
+                        <p><strong>At Our Residence</strong><br>Bogolu Village, Veldurthi Mandal,<br>Kurnool District, Andhra Pradesh.</p>
+                        <a href="https://www.google.com/maps/dir//Bhogolu,+Andhra+Pradesh+518222,+India/@15.4533788,77.9137966,3358m/data=!3m1!1e3!4m17!1m8!3m7!1s0x3bb5d5570c258b01:0xae727363577e8633!2sBhogolu,+Andhra+Pradesh+518222,+India!3b1!8m2!3d15.459467!4d77.9317424!16s%2Fg%2F1thr5mfs!4m7!1m0!1m5!1m1!1s0x3bb5d5570c258b01:0xae727363577e8633!2m2!1d77.9317424!2d15.459467?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-button">📍 VIEW ON GOOGLE MAPS</a>
+                    </div>
+                </div>
+
+                <div id="te-content" class="lang-content telugu-font">
+                    <div class="shlokam" style="font-size:1.2rem;">శ్రీరస్తు • శుభమస్తు • కల్యాణమస్తు</div>
+                    <h2 style="font-size:1.8rem;">ఆహ్వాన పత్రిక</h2>
+                    <p style="font-size: 1.1rem;">శ్రీ కాసుమ తిమ్మరాయుడు స్వామి దివ్య ఆశీస్సులతో, మేము మిమ్మల్ని మా వివాహ వేడుకకు సాదరంగా ఆహ్వానిస్తున్నాము.</p>
+                    <span style="color:var(--dark-gold)">చి.</span>
+                    <h1 class="names-te">విజయ్ కుమార్</h1>
+                    <p style="font-style:italic;">మరియు</p>
+                    <span style="color:var(--dark-gold)">చి. ల. సౌ.</span>
+                    <h1 class="names-te">స్రావణి</h1>
+                    <p style="font-size: 0.9rem; color: #777;">పిక్కిలి వెంకటనారాయణ మరియు చంద్రకళ గార్ల కుమార్తె (కర్నూలు జిల్లా)</p>
+                    
+                    <div class="muhurtham-box">
+                        <strong style="font-size:1.4rem; display: block; margin-bottom: 5px;">ముహూర్తం</strong>
+                        <p style="font-size:1.2rem;">శనివారం, 9 మే 2026<br>ఉదయం 11:15 గంటలకు | అభిజిత్ లగ్నం</p>
+                    </div>
+
+                    <div class="venue-section">
+                        <p style="color: var(--wax); font-size: 1.3rem; font-weight: bold;">కళ్యాణ వేదిక</p>
+                        <p style="font-size:1.1rem;"><strong>మా నివాసమున</strong><br>బోగోలు గ్రామం, వెల్దుర్తి మండలం,<br>కర్నూలు జిల్లా, ఆంధ్రప్రదేశ్.</p>
+                        <a href="https://www.google.com/maps/dir//Bhogolu,+Andhra+Pradesh+518222,+India/@15.4533788,77.9137966,3358m/data=!3m1!1e3!4m17!1m8!3m7!1s0x3bb5d5570c258b01:0xae727363577e8633!2sBhogolu,+Andhra+Pradesh+518222,+India!3b1!8m2!3d15.459467!4d77.9317424!16s%2Fg%2F1thr5mfs!4m7!1m0!1m5!1m1!1s0x3bb5d5570c258b01:0xae727363577e8633!2m2!1d77.9317424!2d15.459467?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-button">📍 మ్యాప్ చూడండి</a>
+                    </div>
                 </div>
 
                 <div style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
-                    <p style="font-size: 0.8rem; letter-spacing: 1px;">WITH BEST COMPLIMENTS FROM:</p>
-                    <p><strong>Smt. Kotagoda Jayamma & Sri Kotagoda Buchappa Naidu</strong></p>
-                    <p style="font-size: 0.9rem;">Vill: Bogolu, Dist: Kurnool</p>
+                    
                 </div>
             </div>
         </div>
@@ -261,10 +241,19 @@
         function unroll() {
             document.getElementById('seal').classList.add('hidden');
             document.getElementById('parchment').classList.add('open');
-            
             setTimeout(() => {
                 window.scrollTo({ top: 100, behavior: 'smooth' });
             }, 500);
+        }
+
+        function switchLang(lang) {
+            // Toggle Buttons
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-te').classList.toggle('active', lang === 'te');
+
+            // Toggle Content
+            document.getElementById('en-content').classList.toggle('active', lang === 'en');
+            document.getElementById('te-content').classList.toggle('active', lang === 'te');
         }
     </script>
 
